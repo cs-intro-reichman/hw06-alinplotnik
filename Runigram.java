@@ -10,9 +10,9 @@ public class Runigram {
 		//// Hide / change / add to the testing code below, as needed.
 		
 		// Tests the reading and printing of an image:	
-		Color[][] tinypic = read("tinypic.ppm");
-		print(tinypic);
-		System.out.println();
+		//Color[][] tinypic = read("tinypic.ppm");
+		//print(tinypic);
+		//System.out.println();
 
 		// Creates an image which will be the result of various 
 		// image processing operations:
@@ -23,11 +23,11 @@ public class Runigram {
 	//	System.out.println();
 	//	print(imageOut);
 
-		//Color pixel = new Color(124, 115, 126);
-		//Color luminated = luminance(pixel);
-		//print(luminated);
+		Color pixel = new Color(225, 250, 255);
+		Color luminated = luminance(pixel);
+		print(luminated);
 
-		print(scaled(tinypic, 3, 5));
+		//print(scaled(tinypic, 3, 5));
  
 
 
@@ -134,8 +134,7 @@ public class Runigram {
 		Color[][] newImage = new Color[rows][col];
 		for ( int i = 0; i < rows; i++){
 			for ( int j = 0; j < col; j++){
-				Color clr = image[i][j];
-				newImage[i][j] = luminance(clr);
+				newImage[i][j] = luminance(image[i][j]);
 			}
 		}
 		return newImage;
