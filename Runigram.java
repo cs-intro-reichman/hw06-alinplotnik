@@ -134,7 +134,7 @@ public class Runigram {
 		Color[][] grey_image = new Color[image.length][image[0].length];
 		for (int i = 0; i<image.length; i++)
 		{
-			for (int j=0; j<image[i].length; j++)
+			for (int j=0; j<image[0].length; j++)
 			{
 				grey_image[i][j] = luminance(image[i][j]);
 			}
