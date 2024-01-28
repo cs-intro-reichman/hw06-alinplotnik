@@ -47,17 +47,21 @@ public class Runigram {
 		in.readInt();
 		// Creates the image array
 		Color[][] image = new Color[numRows][numCols];
-	
-		for (int i = 0; i < numRows; i++) {
-			for (int j = 0; j < numCols; j++) {
-				int red = in.readInt();
-				int green = in.readInt();
-				int blue = in.readInt();
-				Color clr = new Color(red, green, blue);
-				image[i][j] = clr;
-			}
+		while(!in.isEmpty())
+		{
+			for (int i = 0; i<image.length; i++)
+			{
+				for (int j = 0; j<image[i].length; j++)
+				{
+					int pixel1 = in.readInt();
+					int pixel2 = in.readInt();
+					int pixel3 = in.readInt();
+					Color new_color = new Color (pixel1, pixel2, pixel3);
+					image[i][j] = new_color;
+				}
+			}	
 		}
-	
+
 		return image;
 	}
 
@@ -123,52 +127,50 @@ public class Runigram {
 	// Computes the luminance of the RGB values of the given pixel, using the formula 
 	// lum = 0.299 * r + 0.587 * g + 0.114 * b, and returns a Color object consisting
 	// the three values r = lum, g = lum, b = lum.
-	private static Color luminance(Color color) {
-		int red = color.getRed();
-		int green = color.getGreen();
-		int blue = color.getBlue();
-	
-		int lum = (int) (0.299 * red + 0.587 * green + 0.114 * blue);
-	
-		return new Color(lum, lum, lum);
+	public static Color luminance(Color pixel) {
+		double r = pixel.getRed() *0.299;
+		double g = pixel.getGreen() * 0.587;
+		double b = pixel.getBlue() * 0.114;
+		int rgb = (int)(r+g+b);
+		Color new_pixel = new Color (rgb, rgb, rgb);
+		return new_pixel;
 	}
 	
 	/**
 	 * Returns an image which is the grayscaled version of the given image.
 	 */
 	public static Color[][] grayScaled(Color[][] image) {
-    int rows = image.length;
-    int cols = image[0].length;
-
-    Color[][] result = new Color[rows][cols];
-
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            result[i][j] = luminance(image[i][j]);
-        }
-    }
-
-    return result;
-}
+		Color[][] grey_image = new Color[image.length][image[0].length];
+		for (int i = 0; i<image.length; i++)
+		{
+			for (int j=0; j<image[i].length; j++)
+			{
+				grey_image[i][j] = luminance(image[i][j]);
+			}
+		}
+		return grey_image;
+	}	
 	
 	/**
 	 * Returns an image which is the scaled version of the given image. 
 	 * The image is scaled (resized) to have the given width and height.
 	 */
-	public static Color[][] scaled(Color[][] image, int width, int height) { //width = עמודות
-		Color[][] scaledImage = new Color[height][width];
-		int originalHeight = image.length;
-		int originalWidth = image[0].length;
-
-		for (int i = 0; i < scaledImage.length; i++){
-			for (int j = 0; j < scaledImage[i].length; j++){
-				int row = (int) ((i * (double)(originalHeight) / (double) (height)));
-				int col = (int) (j * ((double)(originalWidth) / (double) (width)));
-				scaledImage[i][j] = image[row][col];
+	public static Color[][] scaled(Color[][] image, int width, int height) 
+	{
+		int w0 = image[0].length; //gets the width of the source array
+		int h0 = image.length; //gets the hight of the source array
+		Color[][] scaled_image = new Color[height][width];
+		
+		for (int i = 0; i <scaled_image.length; i++)
+		{
+			for (int j = 0; j<scaled_image[i].length; j++)
+			{
+				int row = (int) ((i * (double)(h0) / (double) (height)));
+				int col = (int) (j * ((double)(w0) / (double) (width)));
+				scaled_image[i][j] = image[row][col];
 			}
 		}
-
-		return scaledImage;
+		return scaled_image;
 	}
 	
 	/**
