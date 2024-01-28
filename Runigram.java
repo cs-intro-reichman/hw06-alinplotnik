@@ -19,7 +19,7 @@ public class Runigram {
 		Color[][] imageOut;
 
 		// Tests the horizontal flipping of an image:
-		imageOut = grayScaled(tinypic);
+		imageOut = flippedHorizontally(tinypic);
 		System.out.println();
 		print(imageOut);
 
@@ -66,20 +66,19 @@ public class Runigram {
 	}
 
     // Prints the RGB values of a given color.
-	public static void print(Color c) {
+	private static void print(Color c) {
 	    System.out.print("(");
 		System.out.printf("%3s,", c.getRed());   // Prints the red component
 		System.out.printf("%3s,", c.getGreen()); // Prints the green component
         System.out.printf("%3s",  c.getBlue());  // Prints the blue component
         System.out.print(")  ");
 	}
-
 	// Prints the pixels of the given image.
 	// Each pixel is printed as a triplet of (r,g,b) values.
 	// This function is used for debugging purposes.
 	// For example, to check that some image processing function works correctly,
 	// we can apply the function and then use this function to print the resulting image.
-	public static void print(Color[][] image) {
+	private static void print(Color[][] image) {
 
 		for (int i = 0; i < image.length; i++)
 		{
