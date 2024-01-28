@@ -11,8 +11,7 @@ public class Runigram {
 		
 		// Tests the reading and printing of an image:	
 		Color[][] tinypic = read("tinypic.ppm");
-		//print(tinypic);
-		//System.out.println();
+		print(tinypic);
 
 		// Creates an image which will be the result of various 
 		// image processing operations:
@@ -23,13 +22,18 @@ public class Runigram {
 		System.out.println();
 		print(imageOut);
 
-	//	Color pixel = new Color(225, 250, 255);
-	//	Color luminated = luminance(pixel);
-	//	print(luminated);
-
-		//print(scaled(tinypic, 3, 5));
- 
-
+		imageOut = flippedVertically(tinypic);
+		System.out.println();
+		//print(imageOut);
+		Color c1 = new Color (100,40,100);
+		Color c2 = new Color (200,20,40);
+		double a = 0.25;
+		print(blend(c1, c2, a));
+		//print(luminance(c));
+		System.out.println();
+		//imageOut = grayScaled(tinypic);
+		imageOut = scaled(tinypic, 3,5);
+		print(imageOut);
 
 		
 		//// Write here whatever code you need in order to test your work.
@@ -61,7 +65,11 @@ public class Runigram {
 				}
 			}	
 		}
-
+		// Reads the RGB values from the file, into the image array. 
+		// For each pixel (i,j), reads 3 values from the file,
+		// creates from the 3 colors a new Color object, and 
+		// makes pixel (i,j) refer to that object.
+		//// Replace the following statement with your code.
 		return image;
 	}
 
@@ -73,54 +81,57 @@ public class Runigram {
         System.out.printf("%3s",  c.getBlue());  // Prints the blue component
         System.out.print(")  ");
 	}
+
 	// Prints the pixels of the given image.
 	// Each pixel is printed as a triplet of (r,g,b) values.
 	// This function is used for debugging purposes.
 	// For example, to check that some image processing function works correctly,
 	// we can apply the function and then use this function to print the resulting image.
-	private static void print(Color[][] image) {
-
-		for (int i = 0; i < image.length; i++)
-		{
-		 for (int j = 0; j < image[i].length; j++)
-		    {
-               print(image[i][j]);
-	    	}
-		System.out.println();
-	    }
-}
+	private static void print(Color[][] image) 
+	{
+		for (int i = 0; i<image.length; i++)
+			{
+				for (int j = 0; j<image[i].length; j++)
+				{
+					print(image[i][j]);
+				}
+				System.out.println();
+			}		
+	}
 	
 	/**
 	 * Returns an image which is the horizontally flipped version of the given image. 
 	 */
 	public static Color[][] flippedHorizontally(Color[][] image) {
-		int rows = image.length;
-		int col = image[0].length;
-		Color[][] newImage = new Color[rows][col];
-		for ( int i = 0; i < rows; i++){
-			for ( int j = 0; j < col; j++){
-				newImage[i][j] = image[i][col-1-j];
+		Color[][] flipped_image = new Color[image.length][image[0].length]; //creates a new 2D array to store the new image
+		for (int i = 0; i<image.length; i++)
+		{	
+			int index = 0;
+			for (int j = image[i].length-1; j>=0; j--) //starts running from the last column of every row
+			{
+				flipped_image[i][index] = image[i][j];
+				index++;
 			}
 		}
-		return newImage;
+		return flipped_image;
 	}
 	
 	/**
 	 * Returns an image which is the vertically flipped version of the given image. 
 	 */
 	public static Color[][] flippedVertically(Color[][] image){
-		int rows = image.length;
-		int col = image[0].length;
-		Color[][] newImage = new Color[rows][col];
-
-		for ( int i = 0; i < col; i++)
-		{
-			for ( int j = 0; j < rows; j++)
+		Color[][] flipped_image = new Color[image.length][image[0].length]; //creates a new 2D array to store the new image
+		int row = 0;
+		for (int i = image.length-1; i>=0; i--)
+		{	
+			for (int j = 0; j<image[i].length; j++)
 			{
-				newImage[j][i] = image[rows-1-j][i];
+				flipped_image[row][j] = image[i][j];
+
 			}
+			row++;
 		}
-		return newImage;
+		return flipped_image;
 	}
 	
 	// Computes the luminance of the RGB values of the given pixel, using the formula 
