@@ -47,21 +47,17 @@ public class Runigram {
 		in.readInt();
 		// Creates the image array
 		Color[][] image = new Color[numRows][numCols];
-
-		while(!in.isEmpty())
-		{
-		    for (int i = 0; i < numRows; i++)
-			{
-		    	for (int j = 0; j < numCols; j++)
-				{
-				     int red = in.readInt();
-				     int green = in.readInt();
-				     int blue = in.readInt();
-				     Color clr = new Color(red, green, blue);
-				     image[i][j] = clr; 
-			    }
-		    }
-		}	
+	
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				int red = in.readInt();
+				int green = in.readInt();
+				int blue = in.readInt();
+				Color clr = new Color(red, green, blue);
+				image[i][j] = clr;
+			}
+		}
+	
 		return image;
 	}
 
