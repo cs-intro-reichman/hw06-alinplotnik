@@ -23,4 +23,5 @@ public class Editor2 {
 		Runigram.setCanvas(scaledImage);
 		Runigram.display(scaledImage);					
 	}
+	
 }
