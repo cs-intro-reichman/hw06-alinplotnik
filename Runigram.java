@@ -113,7 +113,7 @@ public class Runigram {
 		int rows = image.length;
 		int col = image[0].length;
 		Color[][] newImage = new Color[rows][col];
-		
+
 		for ( int i = 0; i < col; i++)
 		{
 			for ( int j = 0; j < rows; j++)
@@ -142,17 +142,19 @@ public class Runigram {
 	 * Returns an image which is the grayscaled version of the given image.
 	 */
 	public static Color[][] grayScaled(Color[][] image) {
-		Color[][] grey_image = new Color[image.length][image[0].length];
+    int rows = image.length;
+    int cols = image[0].length;
 
-		for (int i = 0; i<image.length; i++)
-		{
-			for (int j=0; j<image[0].length; j++)
-			{
-				grey_image[i][j] = luminance(image[i][j]);
-			}
-		}
-		return grey_image;
-	}	
+    Color[][] result = new Color[rows][cols];
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result[i][j] = luminance(image[i][j]);
+        }
+    }
+
+    return result;
+}
 	
 	/**
 	 * Returns an image which is the scaled version of the given image. 
