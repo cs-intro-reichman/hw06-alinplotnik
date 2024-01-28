@@ -10,22 +10,22 @@ public class Runigram {
 		//// Hide / change / add to the testing code below, as needed.
 		
 		// Tests the reading and printing of an image:	
-		//Color[][] tinypic = read("tinypic.ppm");
+		Color[][] tinypic = read("tinypic.ppm");
 		//print(tinypic);
 		//System.out.println();
 
 		// Creates an image which will be the result of various 
 		// image processing operations:
-	//	Color[][] imageOut;
+		Color[][] imageOut;
 
 		// Tests the horizontal flipping of an image:
-	//	imageOut = grayScaled(tinypic);
-	//	System.out.println();
-	//	print(imageOut);
+		imageOut = grayScaled(tinypic);
+		System.out.println();
+		print(imageOut);
 
-		Color pixel = new Color(225, 250, 255);
-		Color luminated = luminance(pixel);
-		print(luminated);
+	//	Color pixel = new Color(225, 250, 255);
+	//	Color luminated = luminance(pixel);
+	//	print(luminated);
 
 		//print(scaled(tinypic, 3, 5));
  
@@ -47,16 +47,21 @@ public class Runigram {
 		in.readInt();
 		// Creates the image array
 		Color[][] image = new Color[numRows][numCols];
-		
-		for (int i = 0; i < numRows; i++){
-			for (int j = 0; j < numCols; j++){
-				int red = in.readInt();
-				int green = in.readInt();
-				int blue = in.readInt();
-				Color clr = new Color(red, green, blue);
-				image[i][j] = clr; 
-			}
-		}
+
+		while(!in.isEmpty())
+		{
+		    for (int i = 0; i < numRows; i++)
+			{
+		    	for (int j = 0; j < numCols; j++)
+				{
+				     int red = in.readInt();
+				     int green = in.readInt();
+				     int blue = in.readInt();
+				     Color clr = new Color(red, green, blue);
+				     image[i][j] = clr; 
+			    }
+		    }
+		}	
 		return image;
 	}
 
@@ -75,12 +80,15 @@ public class Runigram {
 	// For example, to check that some image processing function works correctly,
 	// we can apply the function and then use this function to print the resulting image.
 	public static void print(Color[][] image) {
-		for (int i = 0; i < image.length; i++){
-		 for (int j = 0; j < image[i].length; j++){
-          print(image[i][j]);
-		}
+
+		for (int i = 0; i < image.length; i++)
+		{
+		 for (int j = 0; j < image[i].length; j++)
+		    {
+               print(image[i][j]);
+	    	}
 		System.out.println();
-	}
+	    }
 }
 	
 	/**
@@ -105,8 +113,11 @@ public class Runigram {
 		int rows = image.length;
 		int col = image[0].length;
 		Color[][] newImage = new Color[rows][col];
-		for ( int i = 0; i < col; i++){
-			for ( int j = 0; j < rows; j++){
+		
+		for ( int i = 0; i < col; i++)
+		{
+			for ( int j = 0; j < rows; j++)
+			{
 				newImage[j][i] = image[rows-1-j][i];
 			}
 		}
@@ -132,6 +143,7 @@ public class Runigram {
 	 */
 	public static Color[][] grayScaled(Color[][] image) {
 		Color[][] grey_image = new Color[image.length][image[0].length];
+
 		for (int i = 0; i<image.length; i++)
 		{
 			for (int j=0; j<image[0].length; j++)
